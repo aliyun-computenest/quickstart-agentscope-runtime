@@ -2,7 +2,7 @@
 
 ## 概述
 
-AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工具执行、浏览器自动化、文件系统操作、训练评测等功能。本方案部署了一套运程沙箱环境，远程沙箱服务器使您能够将沙箱部署为独立服务，提供资源隔离和集中管理等优势，您可以通过沙箱SDK连接到远程沙箱服务器。 访问[LiteLLM官网](https://doc.agentscope.io/zh_CN/)查看详情。
+AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工具执行、浏览器自动化、文件系统操作、训练评测等功能。本方案部署了一套运程沙箱环境，远程沙箱服务器使您能够将沙箱部署为独立服务，提供资源隔离和集中管理等优势，您可以通过沙箱SDK连接到远程沙箱服务器。 访问[AgentScope Runtime 官网](https://runtime.agentscope.io/zh/intro.html)查看详情。
 
 ## 计费说明
 
@@ -42,7 +42,7 @@ AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工�
 
 ## 使用示例
 
-1. 远程连接沙箱服务器，创建脚本并运行。
+1. 远程连接沙箱服务器（您也可以在本机操作），参考[官方文档](https://runtime.agentscope.io/zh/install.html)安装Agentscope Runtime的稳定版本，创建脚本并运行。
    ![image.png](img_3.jpg)
 
    示例脚本如下：
@@ -51,10 +51,12 @@ AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工�
    
    # 连接到远程服务器（替换为您的实际沙箱服务器地址和bear_token）
    with BaseSandbox(
-       base_url="",
-       bearer_token="",
+       base_url="沙箱服务器地址",
+       bearer_token="沙箱服务器bear_token",
    ) as sandbox:
        # 正常使用沙箱
        result = sandbox.run_shell_command(command="echo 'Hello from remote!'")
        print(result)
    ```
+
+更多用法请参考[官方示例](https://runtime.agentscope.io/zh/api/index.html)。
