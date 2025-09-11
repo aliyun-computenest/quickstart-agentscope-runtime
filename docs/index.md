@@ -62,7 +62,7 @@ AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工�
  
 ### 沙箱类型为Web浏览器自动化
 1. 远程连接沙箱服务器（您也可以在本机操作）
-   ![image.png](img_4.jpg)
+   ![image.png](img_4.png)
    示例脚本如下：
    ```python
    from agentscope_runtime.sandbox import BrowserSandbox
@@ -82,10 +82,10 @@ AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工�
    
 2. 创建出沙箱后，会得到一个websocket 连接，通过这个websocket 连接，可以访问browser_use的功能，可以复制得到的websocket 连接，替换到以下示例HTML中547行的baseWsUrl 中，访问此html，就可以访问沙箱的浏览器。
    在地址栏可以访问网址
-   ![image.png](img_5.jpg)
+   ![image.png](img_5.png)
 
 
-   [示例HTML]()
+   [示例HTML](https://computenest-service-deploy-document-cn-hangzhou.oss-cn-hangzhou.aliyuncs.com/quickstart-agentscope-runtime/example.html)
 
 
 更多用法请参考[官方示例](https://runtime.agentscope.io/zh/api/index.html)。
