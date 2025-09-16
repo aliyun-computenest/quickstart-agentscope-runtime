@@ -62,7 +62,7 @@ AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工�
  
 ### 沙箱类型为Web浏览器自动化
 1. 远程连接沙箱服务器（您也可以在本机操作）
-   ![image.png](img_4.png)
+   ![image.png](img_4.jpg)
    示例脚本如下：
    ```python
    from agentscope_runtime.sandbox import BrowserSandbox
