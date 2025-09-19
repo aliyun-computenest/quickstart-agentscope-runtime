@@ -87,5 +87,30 @@ AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工�
 
    [示例HTML](https://computenest-service-deploy-document-cn-hangzhou.oss-cn-hangzhou.aliyuncs.com/quickstart-agentscope-runtime/example.html)
 
-
+### 通过MCP调用沙箱服务
+1. 沙箱环境部署成功后，可以创建对应的MCP Server, 通过MCP的方式调用沙箱服务。这里介绍通过百炼的方式创建MCP Server，并使用的流程。在百炼中创建MCP 服务器，使用脚本创建的方式
+![image.png](img_6.png)
+2. 配置MCP 服务器的信息，安装方式选择uvx, MCP 服务配置使用以下Json， 其中base_url为沙箱服务器地址，bearer_token为沙箱服务器的bear_token。
+   ![image.png](img_7.png)
+```json
+{
+  "mcpServers": {
+    "code_interpreter": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "agentscope-runtime[sandbox]",
+        "runtime-sandbox-mcp",
+        "--type=base",
+        "--base_url=http://沙箱服务器地址:8000",
+        "--bearer_token=xxx"
+      ]
+    }
+  }
+}
+```
+3. 创建MCP Server成功后，可以查看MCP Server 的工具列表
+   ![image.png](img_8.png)
+4. 在MCP Client 中配置成功后，Agent 就可以通过MCP Server 调用沙箱服务了。比如下图，通过沙箱执行python 脚本
+![image.png](img_9.png)
 更多用法请参考[官方示例](https://runtime.agentscope.io/zh/api/index.html)。
