@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="计算巢是阿里云开放给企业应用服务商的服务管理平台。服务商能够在计算巢上发布私有化部署服务，为其客户提供云上软件一键部署的能力；同时也支持全托管模式的服务，赋能服务商托管其客户资源。">
+  <title>AgentScope Runtime 沙箱环境快速部署 - Aliyun 计算巢 x Demo</title>
+
+  <link rel="shortcut icon" href="img/favicon.ico">
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="css/theme.css">
+  
+
+  
+
+  
+  
+
+  
+    <script src="search/main.js"></script>
+  
+
+  
+
+  <script src="js/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="nav-inner">
+        <div class="logo">
+          <img src="./img/logo-2x.png">
+        </div>
+        <div class="nav-list">
+          <ul>
+          
+              <li><a href="#agentscope-runtime">AgentScope Runtime 沙箱环境快速部署</a></li>
+              
+                  <li><a href="#_1">概述</a></li>
+                  
+              
+                  <li><a href="#_2">计费说明</a></li>
+                  
+              
+                  <li><a href="#ram">RAM账号所需权限</a></li>
+                  
+              
+                  <li><a href="#_3">部署流程</a></li>
+                  
+              
+                  <li><a href="#_4">使用示例</a></li>
+                  
+                      <li class="li-h3"><a href="#pythonshell">沙箱类型为Python代码及Shell命令执行</a></li>
+                  
+                      <li class="li-h3"><a href="#web">沙箱类型为Web浏览器自动化</a></li>
+                  
+                      <li class="li-h3"><a href="#mcp">通过MCP调用沙箱服务</a></li>
+                  
+              
+          
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="content theme-github">
+      
+      <div class="content-inner">        
+        
+        <h1 id="agentscope-runtime">AgentScope Runtime 沙箱环境快速部署</h1>
+<h2 id="_1">概述</h2>
+<p>AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工具执行、浏览器自动化、文件系统操作、训练评测等功能。本方案部署了一套运程沙箱环境，远程沙箱服务器使您能够将沙箱部署为独立服务，提供资源隔离和集中管理等优势，您可以通过沙箱SDK连接到远程沙箱服务器。 访问<a href="https://runtime.agentscope.io/zh/intro.html">AgentScope Runtime 官网</a>查看详情。</p>
+<h2 id="_2">计费说明</h2>
+<p>费用主要涉及：</p>
+<ul>
+<li>所选vCPU与内存规格</li>
+<li>系统盘类型及容量</li>
+<li>公网带宽</li>
+<li>所选的云数据库的规格</li>
+</ul>
+<h2 id="ram">RAM账号所需权限</h2>
+<p>部署服务时，需要对部分阿里云资源进行访问和创建操作。因此您的账号需要包含如下资源的权限。
+<strong>说明</strong>：当您的账号是RAM账号时，才需要添加此权限。</p>
+<table>
+<thead>
+<tr>
+<th>权限策略名称</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AliyunECSFullAccess</td>
+<td>管理云服务器服务（ECS）的权限</td>
+</tr>
+<tr>
+<td>AliyunVPCFullAccess</td>
+<td>管理专有网络（VPC）的权限</td>
+</tr>
+<tr>
+<td>AliyunROSFullAccess</td>
+<td>管理资源编排服务（ROS）的权限</td>
+</tr>
+<tr>
+<td>AliyunCSFullAccess</td>
+<td>管理容器服务（CS）的权限</td>
+</tr>
+<tr>
+<td>AliyunROSFullAccess</td>
+<td>管理资源编排服务（ROS）的权限</td>
+</tr>
+<tr>
+<td>AliyunKvstoreFullAccess</td>
+<td>管理云数据库Tair（兼容 Redis）的权限</td>
+</tr>
+<tr>
+<td>AliyunRDSFullAccess</td>
+<td>管理云数据库服务（RDS）的权限</td>
+</tr>
+<tr>
+<td>AliyunComputeNestUserFullAccess</td>
+<td>管理计算巢服务（ComputeNest）的用户侧权限</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">部署流程</h2>
+<ol>
+<li>
+<p>访问服务<a href="https://computenest.console.aliyun.com/service/instance/create/cn-hangzhou?type=user&amp;ServiceId=service-7029e12746fa424db3f3">部署链接</a>，按提示填写部署参数：
+   <img alt="image.png" src="img_1.jpg" /></p>
+</li>
+<li>
+<p>参数填写完成后可以看到对应询价明细，确认参数后点击<strong>下一步：确认订单</strong>。 确认订单完成后同意服务协议并点击<strong>立即创建</strong>进入部署阶段。</p>
+</li>
+<li>
+<p>等待部署完成后进入服务实例概览页, 可以看到沙箱服务器地址和访问沙箱服务器的bear_token。
+   <img alt="image.png" src="img_2.jpg" /></p>
+</li>
+</ol>
+<h2 id="_4">使用示例</h2>
+<h3 id="pythonshell">沙箱类型为Python代码及Shell命令执行</h3>
+<ol>
+<li>远程连接沙箱服务器（您也可以在本机操作），参考<a href="https://runtime.agentscope.io/zh/install.html">官方文档</a>
+   安装Agentscope Runtime的稳定版本，创建脚本并运行。
+   <img alt="image.png" src="img_3.jpg" /></li>
+</ol>
+<p>示例脚本如下：
+   ```python
+   from agentscope_runtime.sandbox import BaseSandbox</p>
+<p># 连接到远程服务器（替换为您的实际沙箱服务器地址和bear_token）
+   with BaseSandbox(
+       base_url="沙箱服务器地址",
+       bearer_token="沙箱服务器bear_token",
+   ) as sandbox:
+       # 正常使用沙箱
+       result = sandbox.run_shell_command(command="echo 'Hello from remote!'")
+       print(result)
+   ```</p>
+<h3 id="web">沙箱类型为Web浏览器自动化</h3>
+<ol>
+<li>远程连接沙箱服务器（您也可以在本机操作）参考<a href="https://runtime.agentscope.io/zh/install.html">官方文档</a>
+   安装Agentscope Runtime的稳定版本，创建脚本并运行。
+   <img alt="image.png" src="img_4.jpg" />
+   示例脚本如下：
+   ```python
+   from agentscope_runtime.sandbox import BrowserSandbox
+   import time
+   import websockets</li>
+</ol>
+<p># 连接到远程服务器（替换为您的实际沙箱服务器地址和bear_token）
+   with BrowserSandbox(
+       base_url="沙箱服务器地址",
+       bearer_token="沙箱服务器bear_token",
+   ) as sandbox:
+       # 正常使用沙箱
+       print(sandbox.browser_ws)
+       time.sleep(5) # wait for health check
+       input("Press Enter to kill sandbox...")
+   ```</p>
+<ol>
+<li>创建出沙箱后，会得到一个websocket 连接，通过这个websocket 连接，可以访问browser_use的功能，可以复制得到的websocket 连接，替换到以下示例HTML中547行的baseWsUrl 中，访问此html，就可以访问沙箱的浏览器。
+   在地址栏可以访问网址
+   <img alt="image.png" src="img_5.png" /></li>
+</ol>
+<p><a href="https://computenest-service-deploy-document-cn-hangzhou.oss-cn-hangzhou.aliyuncs.com/quickstart-agentscope-runtime/example.html">示例HTML</a></p>
+<h3 id="mcp">通过MCP调用沙箱服务</h3>
+<ol>
+<li>沙箱环境部署成功后，可以创建对应的MCP Server, 通过MCP的方式调用沙箱服务。这里介绍通过百炼的方式创建MCP Server，并使用的流程。在百炼中创建MCP 服务器，使用脚本创建的方式
+<img alt="image.png" src="img_6.png" /></li>
+<li>配置MCP 服务器的信息，安装方式选择uvx, MCP 服务配置使用以下Json， 其中base_url为沙箱服务器地址，bearer_token为沙箱服务器的bear_token。
+   <img alt="image.png" src="img_7.png" /></li>
+</ol>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;code_interpreter&quot;: {
+      &quot;command&quot;: &quot;uvx&quot;,
+      &quot;args&quot;: [
+        &quot;--from&quot;,
+        &quot;agentscope-runtime[sandbox]&quot;,
+        &quot;runtime-sandbox-mcp&quot;,
+        &quot;--type=base&quot;,
+        &quot;--base_url=http://沙箱服务器地址:8000&quot;,
+        &quot;--bearer_token=xxx&quot;
+      ]
+    }
+  }
+}
+</code></pre>
+<ol>
+<li>创建MCP Server成功后，可以查看MCP Server 的工具列表
+   <img alt="image.png" src="img_8.png" /></li>
+<li>在MCP Client 中配置成功后，Agent 就可以通过MCP Server 调用沙箱服务了。比如下图，通过沙箱执行python 脚本
+<img alt="image.png" src="img_9.png" />
+更多用法请参考<a href="https://runtime.agentscope.io/zh/api/index.html">官方示例</a>。</li>
+</ol>
+        
+      </div>
+
+      <div class="copyrights">© 2009-2022 Aliyun.com 版权所有</div>
+    </div>
+  </div>
+  
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2025-09-26 08:13:40.922381+00:00
+  -->
+</body>
+</html>
