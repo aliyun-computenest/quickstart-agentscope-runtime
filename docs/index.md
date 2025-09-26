@@ -43,7 +43,8 @@ AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工�
 ## 使用示例
 
 ### 沙箱类型为Python代码及Shell命令执行
-1. 远程连接沙箱服务器（您也可以在本机操作），参考[官方文档](https://runtime.agentscope.io/zh/install.html)安装Agentscope Runtime的稳定版本，创建脚本并运行。
+1. 远程连接沙箱服务器（您也可以在本机操作），参考[官方文档](https://runtime.agentscope.io/zh/install.html)
+   安装Agentscope Runtime的稳定版本，创建脚本并运行。
    ![image.png](img_3.jpg)
 
    示例脚本如下：
@@ -61,7 +62,8 @@ AgentScope Runtime的Sandbox提供了一个安全且隔离的环境，用于工�
    ```
  
 ### 沙箱类型为Web浏览器自动化
-1. 远程连接沙箱服务器（您也可以在本机操作）
+1. 远程连接沙箱服务器（您也可以在本机操作）参考[官方文档](https://runtime.agentscope.io/zh/install.html)
+   安装Agentscope Runtime的稳定版本，创建脚本并运行。
    ![image.png](img_4.jpg)
    示例脚本如下：
    ```python
