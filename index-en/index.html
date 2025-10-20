@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="计算巢是阿里云开放给企业应用服务商的服务管理平台。服务商能够在计算巢上发布私有化部署服务，为其客户提供云上软件一键部署的能力；同时也支持全托管模式的服务，赋能服务商托管其客户资源。">
+  <title>AgentScope Runtime sandbox environment for rapid deployment - Aliyun 计算巢 x Demo</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  
+
+  
+
+  
+  
+
+  
+    <script src="../search/main.js"></script>
+  
+
+  
+
+  <script src="../js/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="nav-inner">
+        <div class="logo">
+          <img src="./img/logo-2x.png">
+        </div>
+        <div class="nav-list">
+          <ul>
+          
+              <li><a href="#agentscope-runtime-sandbox-environment-for-rapid-deployment">AgentScope Runtime sandbox environment for rapid deployment</a></li>
+              
+                  <li><a href="#overview">Overview</a></li>
+                  
+              
+                  <li><a href="#deployment-process">Deployment process</a></li>
+                  
+              
+                  <li><a href="#use-example">Use example</a></li>
+                  
+                      <li class="li-h3"><a href="#the-sandbox-type-is-python-code-and-shell-command-execution">The sandbox type is Python code and Shell command execution</a></li>
+                  
+              
+          
+              <li><a href="#connect-to-the-remote-server-replace-with-your-actual-sandbox-server-address-and-bear_token">Connect to the remote server (replace with your actual sandbox server address and bear_token)</a></li>
+              
+          
+              <li><a href="#normal-use-of-sandbox">Normal use of sandbox</a></li>
+              
+                  <li><a href="#sandbox-type-for-web-browser-automation">Sandbox type for web browser automation</a></li>
+                  
+              
+          
+              <li><a href="#connect-to-the-remote-server-replace-with-your-actual-sandbox-server-address-and-bear_token_1">Connect to the remote server (replace with your actual sandbox server address and bear_token)</a></li>
+              
+          
+              <li><a href="#normal-use-of-sandbox_1">Normal use of sandbox</a></li>
+              
+                  <li><a href="#call-the-sandbox-service-through-mcp">Call the sandbox service through MCP</a></li>
+                  
+              
+          
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="content theme-github">
+      
+      <div class="content-inner">        
+        
+        <h1 id="agentscope-runtime-sandbox-environment-for-rapid-deployment">AgentScope Runtime sandbox environment for rapid deployment</h1>
+<h2 id="overview">Overview</h2>
+<p>AgentScope Runtime Sandbox provides a secure and isolated environment for tool execution, browser automation, file system manipulation, training profiling, and more. This solution deploys a transport sandbox environment. The remote sandbox server enables you to deploy the sandbox as an independent service, providing advantages such as resource isolation and centralized management. You can connect to the remote sandbox server through the sandbox SDK. Visit <a href="https://runtime.agentscope.io/zh/intro.html">AgentScope Runtime website</a> for details.</p>
+<h2 id="deployment-process">Deployment process</h2>
+<ol>
+<li>
+<p>Access the service <a href="https://computenest.console.aliyun.com/service/instance/create/cn-hangzhou?type=user&amp;ServiceId=service-7029e12746fa424db3f3">Deployment Link</a> and fill in the deployment parameters as prompted:
+<img alt="image.png" src="../images-en/img_1.jpg" /></p>
+</li>
+<li>
+<p>After completing the parameters, you can see the corresponding RFQ details. After confirming the parameters, click <strong>Next: Confirm Order</strong>. Confirm the order and agree to the service agreement and click <strong>Create Now</strong> to enter the deployment phase.</p>
+</li>
+<li>
+<p>After the deployment is complete, go to the service instance overview page, you can see the address of the sandbox server and the bear_token of accessing the sandbox server.
+<img alt="image.png" src="../images-en/img_2.jpg" /></p>
+</li>
+</ol>
+<h2 id="use-example">Use example</h2>
+<h3 id="the-sandbox-type-is-python-code-and-shell-command-execution">The sandbox type is Python code and Shell command execution</h3>
+<ol>
+<li>Connect to the sandbox server remotely (you can also operate on this machine), refer to <a href="https://runtime.agentscope.io/zh/install.html">official documents</a>
+Install the stable version of the Agentscope Runtime, create the script and run it.
+<img alt="image.png" src="../images-en/img_3.jpg" /></li>
+</ol>
+<p>The sample script is as follows:
+'''python
+from agentscope_runtime.sandbox import BaseSandbox</p>
+<h1 id="connect-to-the-remote-server-replace-with-your-actual-sandbox-server-address-and-bear_token">Connect to the remote server (replace with your actual sandbox server address and bear_token)</h1>
+<p>with BaseSandbox (
+base_url = "Sandbox Server Address",
+bearer_token = "Sandbox Server bear_token",
+) as sandbox:</p>
+<h1 id="normal-use-of-sandbox">Normal use of sandbox</h1>
+<p>result = sandbox.run_shell_command(command="echo 'Hello from remote! '")
+print(result)
+'''</p>
+<h3 id="sandbox-type-for-web-browser-automation">Sandbox type for web browser automation</h3>
+<ol>
+<li>Connect to the sandbox server remotely (you can also operate locally) refer to <a href="https://runtime.agentscope.io/zh/install.html">Official Documents</a>
+Install the stable version of the Agentscope Runtime, create the script and run it.
+<img alt="image.png" src="../images-en/img_4.jpg" />
+The sample script is as follows:
+'''python
+from agentscope_runtime.sandbox import BrowserSandbox
+import time
+import websockets</li>
+</ol>
+<h1 id="connect-to-the-remote-server-replace-with-your-actual-sandbox-server-address-and-bear_token_1">Connect to the remote server (replace with your actual sandbox server address and bear_token)</h1>
+<p>with BrowserSandbox (
+base_url = "Sandbox Server Address",
+bearer_token = "Sandbox Server bear_token",
+) as sandbox:</p>
+<h1 id="normal-use-of-sandbox_1">Normal use of sandbox</h1>
+<p>print(sandbox.browser_ws)
+time.sleep(5) # wait for health check
+input("Press Enter to kill sandbox...")
+'''</p>
+<ol>
+<li>After creating the sandbox, you will get a websocket connection. Through this websocket connection, you can access the functions of the browser_use. You can copy the obtained websocket connection and replace it with the baseWsUrl of line 547 in the following sample HTML. If you access this html, you can access the sandbox browser.
+URL can be accessed in the address bar
+<img alt="image.png" src="../images-en/img_5.png" /></li>
+</ol>
+<p><a href="https://computenest-service-deploy-document-cn-hangzhou.oss-cn-hangzhou.aliyuncs.com/quickstart-agentscope-runtime/example.html">Sample HTML</a></p>
+<h3 id="call-the-sandbox-service-through-mcp">Call the sandbox service through MCP</h3>
+<ol>
+<li>After the sandbox environment is successfully deployed, you can create a corresponding MCP server and call the sandbox service through MCP. This section describes the process of creating an MCP server and using it. Create an MCP server in Bailian and use the method of script creation.
+<img alt="image.png" src="../images-en/img_6.png" /></li>
+<li>Configure the information of the MCP server. Select uvx as the installation method. MCP service configuration uses the following Json, where base_url is the address of the sandbox server and bearer_token is the bear_token of the sandbox server.
+<img alt="image.png" src="../images-en/img_7.png" />
+'''json
+{
+"mcpServers ": {
+"code_interpreter": {
+"command": "uvx ",
+"args ": [
+"--from ",
+"agentscope-runtime[sandbox] ",
+"runtime-sandbox-mcp",
+"--type=base ",
+"-- base_url = http:// sandbox server address: 8000",
+"--bearer_token=xxx"
+]
+}
+}
+}
+'''</li>
+<li>After creating MCP Server successfully, you can view the tool list of MCP Server
+<img alt="image.png" src="../images-en/img_8.png" /></li>
+<li>After the MCP Client is configured successfully, the Agent can call the sandbox service through the MCP Server. For example, as shown in the following figure, the python script is executed through the sandbox.
+<img alt="image.png" src="../images-en/img_9.png" />
+For more usage, please refer to <a href="https://runtime.agentscope.io/zh/api/index.html">official example</a>.</li>
+</ol>
+        
+      </div>
+
+      <div class="copyrights">© 2009-2022 Aliyun.com 版权所有</div>
+    </div>
+  </div>
+  
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2025-10-20 03:29:12.224340+00:00
+  -->
+</body>
+</html>
